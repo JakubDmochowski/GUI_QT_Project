@@ -11,6 +11,11 @@ class BookDialog : public QDialog
 public:
     BookDialog(QString modalTitle = "Modal Title", Book* book = nullptr);
 
+public slots:
+    void setTitle(const QString& title);
+    void setAuthor(const QString& author);
+    void setYear(const QString& year);
+
 private:
     Book* _book;
 };

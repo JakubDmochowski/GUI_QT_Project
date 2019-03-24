@@ -131,5 +131,7 @@ QList<Book> BookTableModel::getBooks() const
 
 void BookTableModel::addEntry(const Book& newItem)
 {
+    beginResetModel();
     _books.append(newItem);
+    endResetModel();
 }

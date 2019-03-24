@@ -1,6 +1,10 @@
 #include "Book.h"
 
 Book::Book()
+    : QTableWidgetItem ()
+    , _title("")
+    , _author("")
+    , _year(0)
 {}
 
 Book::Book(const QTableWidgetItem& other)

@@ -14,11 +14,11 @@ BookDialog::BookDialog(QString modalTitle, Book* book)
     QVBoxLayout* body = new QVBoxLayout();
     container->addLayout(body);
     container->addSpacing(20);
-    QLineEdit* titleInput = new QLineEdit();
+    QLineEdit* titleInput = new QLineEdit(_book->getTitle());
     QLabel* titleLabel = new QLabel("Title");
-    QLineEdit* authorInput = new QLineEdit();
+    QLineEdit* authorInput = new QLineEdit(_book->getAuthor());
     QLabel* authorLabel = new QLabel("Author");
-    QLineEdit* yearInput = new QLineEdit();
+    QLineEdit* yearInput = new QLineEdit(QString::number(_book->getYear()));
     QLabel* yearLabel = new QLabel("Year");
     yearInput->setValidator(new QIntValidator());
     body->addWidget(titleLabel);
@@ -34,9 +34,17 @@ BookDialog::BookDialog(QString modalTitle, Book* book)
     connect(titleInput,
         SIGNAL(textChanged(const QString&)),
         this,
-        SLOT([=](const QString& value){
-            this->_book->setTitle(value);
-        })
+        SLOT(setTitle(const QString&))
+    );
+    connect(authorInput,
+        SIGNAL(textChanged(const QString&)),
+        this,
+        SLOT(setAuthor(const QString&))
+    );
+    connect(yearInput,
+        SIGNAL(textChanged(const QString&)),
+        this,
+        SLOT(setYear(const QString&))
     );
 
     QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
@@ -45,4 +53,19 @@ BookDialog::BookDialog(QString modalTitle, Book* book)
     body->addWidget(buttonBox);
 
     setLayout(container);
+}
+
+void BookDialog::setTitle(const QString& title)
+{
+    _book->setTitle(title);
+}
+
+void BookDialog::setAuthor(const QString& author)
+{
+    _book->setAuthor(author);
+}
+
+void BookDialog::setYear(const QString& year)
+{
+    _book->setYear(year.toInt());
 }
